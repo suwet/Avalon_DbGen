@@ -1,76 +1,220 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Gen.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Gen.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Gen">
+<Window
+    Icon="/Assets/avalonia-logo.ico"
+    Title="Gen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Gen.Views.MainWindow"
+    x:DataType="vm:MainWindowViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Gen.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-   <Border Padding="10" Margin="10" BorderBrush="Black" BorderThickness="1">
-       <DockPanel >
-           <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,*,280" RowDefinitions="Auto,Auto,*,*,*,*,*,*,*">
-               <!-- row 0 -->
-               <Label Grid.Column="0" Grid.Row="0">Mysql Connection string</Label>
-               <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Connection_Str}" Height="20" Margin="0,0,0,10">
-               </TextBox>
-               
-               <!-- row 1 -->
-               <Label Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Foreground="{Binding Connection_Status_Brush}"  Margin="0,10" Content="{Binding Connection_Test_Result}"></Label>
-               <Button Grid.Row="1" HorizontalAlignment="Right" Grid.Column="1" Name="btn_test_con" CommandParameter="{Binding Connection_Str}"
-                       Command="{Binding TestConnectionCommand}" Margin="0,10">
-                       Test Connection
-               </Button>
-              
-               
-               <!-- row 2 -->
-               <Label Grid.Column="0" Margin="0,10" Grid.Row="2">Sql query</Label>
-               <TextBox AcceptsReturn="True" Name="txt_query" TextWrapping="Wrap" Margin="0,10" Text="{Binding Sql_Query}" Grid.Row="2" Height="100" Grid.Column="1">
-               </TextBox>
-           
-               <!-- row 3 -->
-               <Label Grid.Column="0" Grid.Row="3" Margin="0,10">Namespace </Label>
-               <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding NameSpace}" Margin="0,10" Height="20"></TextBox>
-            
-               <!-- row 4 -->
-               <Label Grid.Column="0" Grid.Row="4" Margin="0,10">Model class name</Label>
-               <TextBox Grid.Column="1" Grid.Row="4" Margin="0,10" Height="20" Text="{Binding ModelClassName}"></TextBox>
-            
-               <!-- row 5 -->
-               <Label Grid.Column="0" Grid.Row="5" Margin="0,10">ViewModel class name</Label>
-               <TextBox Grid.Column="1" Grid.Row="5" Margin="0,10" Height="20" Text="{Binding ViewModelClassName}"></TextBox>
-               
-               <!-- row 6 -->
-               <Label Grid.Column="0" Grid.Row="6" Margin="0,10">Data access class name</Label>
-               <Grid ColumnDefinitions="*,Auto,*" Grid.Row="6" Grid.Column="1">
-                   <TextBox Grid.Column="0" IsEnabled="{Binding #chk_dal.IsChecked}" Text="{Binding DalClassName}" Name="txt_dal_class_name"  Height="20"></TextBox>
-                   <Label Grid.Column="1" VerticalAlignment="Center" Padding="0" Margin="10,0">table name</Label>
-                   <TextBox Grid.Column="2" IsEnabled="{Binding #chk_dal.IsChecked}" Text="{Binding TableName}" Name="txt_table_name" Height="20"></TextBox>
-               </Grid>
-               <CheckBox Name="chk_dal" Margin="10,0" IsChecked="{Binding Ischeck_Dal}" Grid.Column="2" Grid.Row="6">Generate Data access class</CheckBox>
-               
-               <!-- row 7 -->
-               <Label Grid.Column="0" Grid.Row="7" Margin="0,10">Service class name</Label>
-               <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding ServiceClassName}" IsEnabled="{Binding #chk_service.IsChecked}" Margin="0,10" Height="20"></TextBox>
-               <CheckBox Name="chk_service" IsChecked="{Binding Ischeck_Service}" Margin="10,0" Grid.Column="2" Grid.Row="7">Generate service class</CheckBox>
-               
-               <!-- row 8 -->
-               <Label Grid.Column="1" Name="lbl_wrote_out" IsVisible="True" Grid.Row="8" Foreground="{Binding}" Margin="0,10" Content="{Binding Write_Output}">
-               </Label>
-           </Grid>
-           <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
-               <Button Command="{Binding GenCommand}" Name="btn_gen" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="100" Margin="10,5">Gen</Button>
-               <Button Name="btn_close" HorizontalAlignment="Center" VerticalContentAlignment="Center" Width="100" Margin="5,10">Close</Button>
-           </StackPanel>
-       </DockPanel>
-       
-   </Border>
+    <Border
+        BorderBrush="Black"
+        BorderThickness="1"
+        Margin="10"
+        Padding="10">
+        <DockPanel>
+            <Grid
+                ColumnDefinitions="Auto,*,280"
+                DockPanel.Dock="Top"
+                RowDefinitions="Auto,Auto,*,*,*,*,*,*,*">
+                <!--  row 0  -->
+                <Label Grid.Column="0" Grid.Row="0">Mysql Connection string</Label>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Height="20"
+                    Margin="0,0,0,10"
+                    Text="{Binding Connection_Str}" />
+
+                <!--  row 1  -->
+                <Label
+                    Content="{Binding Connection_Test_Result}"
+                    Foreground="{Binding Connection_Status_Brush}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    Margin="0,10" />
+                <Button
+                    Command="{Binding TestConnectionCommand}"
+                    CommandParameter="{Binding Connection_Str}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    Margin="0,10"
+                    Name="btn_test_con">
+                    Test Connection
+                </Button>
+
+
+                <!--  row 2  -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Margin="0,10">
+                    Sql query
+                </Label>
+                <TextBox
+                    AcceptsReturn="True"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Height="100"
+                    Margin="0,10"
+                    Name="txt_query"
+                    Text="{Binding Sql_Query}"
+                    TextWrapping="Wrap" />
+
+                <!--  row 3  -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Margin="0,10">
+                    Namespace
+                </Label>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Height="20"
+                    Margin="0,10"
+                    Text="{Binding NameSpace}" />
+
+                <!--  row 4  -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Margin="0,10">
+                    Model class name
+                </Label>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Height="20"
+                    Margin="0,10"
+                    Text="{Binding ModelClassName}" />
+
+                <!--  row 5  -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="5"
+                    Margin="0,10">
+                    ViewModel class name
+                </Label>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Height="20"
+                    Margin="0,10"
+                    Text="{Binding ViewModelClassName}" />
+
+                <!--  row 6  -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Margin="0,10">
+                    Data access class name
+                </Label>
+                <Grid
+                    ColumnDefinitions="*,Auto,*"
+                    Grid.Column="1"
+                    Grid.Row="6">
+                    <TextBox
+                        Grid.Column="0"
+                        Height="20"
+                        IsEnabled="{Binding #chk_dal.IsChecked}"
+                        Name="txt_dal_class_name"
+                        Text="{Binding DalClassName}" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="10,0"
+                        Padding="0"
+                        VerticalAlignment="Center">
+                        table name
+                    </Label>
+                    <TextBox
+                        Grid.Column="2"
+                        Height="20"
+                        IsEnabled="{Binding #chk_dal.IsChecked}"
+                        Name="txt_table_name"
+                        Text="{Binding TableName}" />
+                </Grid>
+                <CheckBox
+                    Grid.Column="2"
+                    Grid.Row="6"
+                    IsChecked="{Binding Ischeck_Dal}"
+                    Margin="10,0"
+                    Name="chk_dal">
+                    Generate Data access class
+                </CheckBox>
+
+                <!--  row 7  -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="7"
+                    Margin="0,10">
+                    Service class name
+                </Label>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="7"
+                    Height="20"
+                    IsEnabled="{Binding #chk_service.IsChecked}"
+                    Margin="0,10"
+                    Text="{Binding ServiceClassName}" />
+                <CheckBox
+                    Grid.Column="2"
+                    Grid.Row="7"
+                    IsChecked="{Binding Ischeck_Service}"
+                    Margin="10,0"
+                    Name="chk_service">
+                    Generate service class
+                </CheckBox>
+
+                <!--  row 8  -->
+                <Label
+                    Content="{Binding Write_Output}"
+                    Foreground="{Binding WrotOutBrush}"
+                    Grid.Column="1"
+                    Grid.Row="8"
+                    IsVisible="True"
+                    Margin="0,10"
+                    Name="lbl_wrote_out" />
+            </Grid>
+            <StackPanel
+                DockPanel.Dock="Bottom"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                VerticalAlignment="Bottom">
+                <Button
+                    Command="{Binding GenCommand}"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="10,5"
+                    Name="btn_gen"
+                    Width="100">
+                    Gen
+                </Button>
+                <Button
+                    HorizontalAlignment="Center"
+                    Margin="5,10"
+                    Name="btn_close"
+                    VerticalContentAlignment="Center"
+                    Width="100">
+                    Close
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+    </Border>
 </Window>

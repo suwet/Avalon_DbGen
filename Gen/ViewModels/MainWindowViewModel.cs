@@ -124,6 +124,7 @@ public class MainWindowViewModel : ViewModelBase
             try
             {
                 con.Open();
+                Connection_Status_Brush = new SolidColorBrush(Colors.Green);
                 Connection_Test_Result = "Result: Success";
             }
             catch (Exception e)
@@ -142,22 +143,21 @@ public class MainWindowViewModel : ViewModelBase
             Gencode.GenModel.GenModelsClass.GenMvvmClass(NameSpace,ViewModelClassName,Sql_Query.Trim());
             if (_ischeck_dal && (string.IsNullOrEmpty(DalClassName)==false && string.IsNullOrEmpty(TableName)==false))
             {
-                Gencode.GenDAL.GenClass.GenDataAccessClass(NameSpace,DalClassName,ModelClassName,TableName);
+                Gencode.GenDAL.GenClass.GenDataAccessClass(NameSpace,DalClassName,ModelClassName,TableName,Sql_Query.Trim());
             }
 
             if (_ischeck_service && (string.IsNullOrEmpty(ServiceClassName)==false))
             {
                 Gencode.GenDAL.GenClass.GenServiceClass(NameSpace, ServiceClassName, ModelClassName, DalClassName, ViewModelClassName);
             }
-            
+            WrotOutBrush = new SolidColorBrush(Colors.Green);
             Write_Output = $"Success:Wrote output to  {AppDomain.CurrentDomain.BaseDirectory}Outputs";
            
         }
         catch (Exception e)
         {
-            _write_output = "Error: Wrote output "+e.Message;
             WrotOutBrush = new SolidColorBrush(Colors.Red);
-
+            _write_output = "Error: Wrote output "+e.Message;
         }
     }
     

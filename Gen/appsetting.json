@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "Test": "Server=127.0.0.1;Uid=root;Pwd=password;Database=avalon_clinic;",
-    "ubuntu": "Server=127.0.0.1;Uid=root;Port=3307;Pwd=password;Database=avalon_clinic;"
+    "Windows": "Server=127.0.0.1;Uid=root;Pwd=password;Database=avalon_clinic;",
+    "Test": "Server=127.0.0.1;Uid=root;Port=3307;Pwd=password;Database=avalon_clinic;"
   }
 }

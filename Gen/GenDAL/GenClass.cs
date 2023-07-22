@@ -10,12 +10,12 @@ namespace Gencode.GenDAL
     public class GenClass
     {
 
-        public static void GenDataAccessClass(string nameSpace, string className,string result_model,string table_name)
+        public static void GenDataAccessClass(string nameSpace, string className,string result_model,string table_name,string sql_query)
         {
             try
             {
                 string output_path = Path.Combine("Outputs", "Dals");
-                string query_path = Path.Combine("GenDAL", "Custom.sql");
+                //string query_path = Path.Combine("GenDAL", "Custom.sql");
                 string base_dal_template_path = Path.Combine("GenDAL", "BaseDal.txt");
                 string dal_template_path = Path.Combine("GenDAL", "DalClass.txt");
 
@@ -24,7 +24,7 @@ namespace Gencode.GenDAL
 
                 string base_dal_class_str = base_dal_template.Replace("[{NAMESPACE}]", nameSpace);
 
-                PrepareDal gp = new PrepareDal(File.ReadAllText(query_path));
+                PrepareDal gp = new PrepareDal(sql_query);
                 string col_list = gp.ListOfColumnName();
                 string col_list_param = gp.ListOfColumnNameWithParam();
                 string object_param = gp.ObjectParameters();
