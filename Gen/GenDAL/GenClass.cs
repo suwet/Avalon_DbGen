@@ -9,7 +9,7 @@ namespace Gencode.GenDAL
 {
     public class GenClass
     {
-
+        public static string connection_str = string.Empty;
         public static void GenDataAccessClass(string nameSpace, string className,string result_model,string table_name,string sql_query)
         {
             try
@@ -24,7 +24,7 @@ namespace Gencode.GenDAL
 
                 string base_dal_class_str = base_dal_template.Replace("[{NAMESPACE}]", nameSpace);
 
-                PrepareDal gp = new PrepareDal(sql_query);
+                PrepareDal gp = new PrepareDal(sql_query,connection_str);
                 string col_list = gp.ListOfColumnName();
                 string col_list_param = gp.ListOfColumnNameWithParam();
                 string object_param = gp.ObjectParameters();
@@ -94,7 +94,7 @@ namespace Gencode.GenDAL
             try
             {
                 //EditMUserForm
-
+                /*
                 string output_path = Path.Combine("Outputs", "UIViews");
                 string query_path = Path.Combine("GenDAL", "Custom.sql");
                 string design_form_template_path = Path.Combine("GenDAL","UI", "EditForm.Designer.txt");
@@ -106,26 +106,6 @@ namespace Gencode.GenDAL
 
                 PrepareDal gp = new PrepareDal(File.ReadAllText(query_path));
 
-                /*
-                string declare_textbox = gp.TextBoxForColumn;
-                string declare_label = gp.LableForColumn;
-                string textbox_instant = gp.TextBoxInStant;
-                string lable_instant = gp.LableInStant;
-                string textbox_to_groupbox = gp.AddTextBoxToGroupBox(className.ToLower());
-                string lable_to_groupbox = gp.AddLableToGroupBox(className.ToLower());
-                string config_control = gp.ConfigTexboxAndLable;
-                string design_form_class_str = design_form_template.Replace("[{NAMESPACE}]", nameSpace)
-                                                                     .Replace("[{CLASS_NAME}]", className)
-                                                                     .Replace("[{GROUPBOX_NAME}]", className.ToLower())
-                                                                     .Replace("[{DECLARE_TEXTBOX_VARIABLE}]", declare_textbox)
-                                                                     .Replace("[{DECLARE_TEXTBOX_VARIABLE}]", declare_textbox)
-                                                                     .Replace("[{DECLARE_LABEL_VARIABLE}]", declare_label)
-                                                                     .Replace("[{CREATE_TEXTBOX_INSTANT}]", textbox_instant)
-                                                                     .Replace("[{ADD_TEXTBOX_TO_GROUPBOX}]", textbox_to_groupbox)
-                                                                     .Replace("[{ADD_LABLE_TO_GROUPBOX}]", lable_to_groupbox)
-                                                                     .Replace("[{CREATE_LABEL_INSTANT}]", lable_instant)
-                                                                     .Replace("[{CONFIG_TEXTBOX_LABEL}]", config_control);
-                */
 
                 string binding_str = gp.BindingTextBox(viewModelName);
 
@@ -145,6 +125,7 @@ namespace Gencode.GenDAL
                 //File.WriteAllText(Path.Combine(output_path, className + ".Designer.cs"), design_form_class_str);
 
                 Console.WriteLine("Success GenClass");
+                */
             }
             catch (Exception ex)
             {

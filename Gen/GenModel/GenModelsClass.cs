@@ -5,6 +5,9 @@ namespace Gencode.GenModel
 {
     public class GenModelsClass
     {
+        public static string connection_str = string.Empty;
+        
+        
         public static void GenClass(string nameSpace,string className,string sql_query)
         {
             try
@@ -19,7 +22,7 @@ namespace Gencode.GenModel
 
                 string base_model_class_str = base_model_template.Replace("[{NAMESPACE}]",nameSpace);
                 
-                PreparePocoModel gp = new PreparePocoModel(sql_query);
+                PreparePocoModel gp = new PreparePocoModel(sql_query,connection_str);
                 string propertys = gp.GetProperty;
                 string model_class_str = model_template.Replace("[{NAMESPACE}]", nameSpace)
                                                             .Replace("[{PROPERTIES}]", propertys)
@@ -55,7 +58,7 @@ namespace Gencode.GenModel
                 string list_view_model_template = File.ReadAllText(list_model_template_path);
                 string base_model_class_str = base_model_template.Replace("[{NAMESPACE}]", nameSpace);
 
-                PreparePocoModel gp = new PreparePocoModel(query_path);
+                PreparePocoModel gp = new PreparePocoModel(query_path,connection_str);
                 string propertys = gp.GetMvvmProperty;
                 string privete_feild = gp.GetPrivateFeild;
                 string model_class_str = model_template.Replace("[{NAMESPACE}]", nameSpace)

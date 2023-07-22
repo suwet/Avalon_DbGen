@@ -14,10 +14,12 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        /*
         configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsetting.json")
             .Build();
+            */
         
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);

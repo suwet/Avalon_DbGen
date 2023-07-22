@@ -11,24 +11,13 @@ namespace Gencode.GenModel
     {
         List<ColumnModel> Columns;
 
-        private string connection_str =
-            Program.configuration.GetConnectionString("Test");
-        //private string connection_str = "Data Source=suwet_phr2\\SQL2014;Initial Catalog = MyTestdb; Persist Security Info=True;User ID = sa; Password=1234qwer";
+        private string connection_str = string.Empty;
+                                            /*Program.configuration.GetConnectionString("Test");*/
+        
         private string sql = string.Empty;
-        public PreparePocoModel(string sql)
+        public PreparePocoModel(string sql,string connectionStr)
         {
-            //sql = @"
-            //                 SELECT SaleOrderNo
-            //                  ,CustomerNo
-            //                  ,MixdesignNo
-            //                  ,Amount
-            //                  ,LoadNumber
-            //                  ,ShipToNo
-            //                  ,Load_Status
-            //                  ,50 as UserCount
-            //                  ,(3.14*6) as Area
-            //                    FROM[MyTestDb].[dbo].[Loads]
-            //                ";
+            this.connection_str = connectionStr;
 
             using (var connection = new MySqlConnection(connection_str))
             {

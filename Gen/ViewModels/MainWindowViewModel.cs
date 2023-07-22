@@ -2,9 +2,10 @@
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Media;
+using Gencode.GenDAL;
 using MySqlConnector;
 using ReactiveUI;
-
+using Gencode.GenModel;
 namespace Gen.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
@@ -139,16 +140,21 @@ public class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            Gencode.GenModel.GenModelsClass.GenClass(NameSpace, ModelClassName,Sql_Query.Trim());
-            Gencode.GenModel.GenModelsClass.GenMvvmClass(NameSpace,ViewModelClassName,Sql_Query.Trim());
+            GenModelsClass.connection_str = Connection_Str;
+            GenClass.connection_str = Connection_Str;
+            
+            GenModelsClass.GenClass(NameSpace, ModelClassName,Sql_Query.Trim());
+            GenModelsClass.GenMvvmClass(NameSpace,ViewModelClassName,Sql_Query.Trim());
+            
+            
             if (_ischeck_dal && (string.IsNullOrEmpty(DalClassName)==false && string.IsNullOrEmpty(TableName)==false))
             {
-                Gencode.GenDAL.GenClass.GenDataAccessClass(NameSpace,DalClassName,ModelClassName,TableName,Sql_Query.Trim());
+                GenClass.GenDataAccessClass(NameSpace,DalClassName,ModelClassName,TableName,Sql_Query.Trim());
             }
 
             if (_ischeck_service && (string.IsNullOrEmpty(ServiceClassName)==false))
             {
-                Gencode.GenDAL.GenClass.GenServiceClass(NameSpace, ServiceClassName, ModelClassName, DalClassName, ViewModelClassName);
+                GenClass.GenServiceClass(NameSpace, ServiceClassName, ModelClassName, DalClassName, ViewModelClassName);
             }
             WrotOutBrush = new SolidColorBrush(Colors.Green);
             Write_Output = $"Success:Wrote output to  {AppDomain.CurrentDomain.BaseDirectory}Outputs";
@@ -157,7 +163,7 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception e)
         {
             WrotOutBrush = new SolidColorBrush(Colors.Red);
-            _write_output = "Error: Wrote output "+e.Message;
+            Write_Output = "Error: Wrote output "+e.Message;
         }
     }
     

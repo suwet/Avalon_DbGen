@@ -10,11 +10,12 @@ namespace Gencode.GenDAL
     public class PrepareDal
     {
         List<ColumnModel> Columns;
-        private string connection_str = Program.configuration.GetConnectionString("Test");
+        private string connection_str = string.Empty;//Program.configuration.GetConnectionString("Test");
         private string sql = string.Empty;
 
-        public PrepareDal(string sql)
+        public PrepareDal(string sql,string connectionStr)
         {
+            this.connection_str = connectionStr;
             using (var connection = new MySqlConnection(connection_str))
             {
                 Columns = ColumnInfo.GetSchemaInfoFromCustomSQl(connection, sql);
