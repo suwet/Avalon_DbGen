@@ -1,0 +1,87 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
+using ReactiveUI;
+using Dapper;
+
+namespace [{NAMESPACE}]
+{
+	public  class [{CLASS_NAME}] : BaseService
+	{
+        private [{DAL_CLASS}] _[{DAL_CLASS}] = new [{DAL_CLASS}]();
+
+        public override void ConfigMapForService()
+        {
+            // access the TheMapper
+            //TheMapper
+        }
+
+        // BindingList
+		public List<[{VIEW_MODEL_NAME}]> GetAll()    
+        {    
+           try
+           {
+                var results = _[{DAL_CLASS}].GetAll();
+                var datas = TheMapper.Map<List<[{VIEW_MODEL_NAME}]>>(results);
+                return datas;
+           }
+           catch(Exception ex)
+           {
+                throw;
+           }
+        }    
+
+        public int Add([{MODEL_NAME}] data)    
+        {    
+            try
+           {
+                return _[{DAL_CLASS}].Insert(data);
+           }
+           catch(Exception ex)
+           {
+                throw;
+           }
+        }   
+        
+        public int Update([{MODEL_NAME}] data)    
+        {    
+            try
+           {
+                return _[{DAL_CLASS}].Update(data);
+           }
+           catch(Exception ex)
+           {
+                throw;
+           }
+        }  
+        
+        public int Delete(long Id)    
+        {    
+            try
+           {
+                return _[{DAL_CLASS}].Delete(Id);
+           }
+           catch(Exception ex)
+           {
+                throw;
+           }
+        }    
+
+        public [{VIEW_MODEL_NAME}] GetById(long Id)    
+        {    
+             try
+           {
+                var result = _[{DAL_CLASS}].GetById(Id);
+                return TheMapper.Map<[{VIEW_MODEL_NAME}]>(result);
+           }
+           catch(Exception ex)
+           {
+                throw;
+           }
+        }    
+	}
+}

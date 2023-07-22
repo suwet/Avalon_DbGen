@@ -1,0 +1,143 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
+using Dapper;
+using System.Data.SqlClient;
+using MySqlConnector;
+
+namespace [{NAMESPACE}]
+{
+	public  class [{CLASS_NAME}] : BaseDal
+	{
+		public List<[{MODEL_NAME}]> GetAll()    
+        {    
+            List<[{MODEL_NAME}]> results = new List<[{MODEL_NAME}]>();    
+            using (var connection = new MySqlConnection(ConnectionString))    
+            {    
+                connection.Open();    
+                string query = @"Select [{COLUMN_LIST}] From [{TABLE_NAME}]";
+                results = connection.Query<[{MODEL_NAME}]>(query).ToList();    
+                connection.Close();    
+            }    
+            return results;    
+        }    
+        
+        public async Task<IEnumerable<[{MODEL_NAME}]>> GetAllAsync()    
+        {    
+                    IEnumerable<[{MODEL_NAME}]> results = null;   
+                    using (var connection = new MySqlConnection(ConnectionString))    
+                    {    
+                        await connection.OpenAsync();    
+                        string query = @"Select [{COLUMN_LIST}] From [{TABLE_NAME}]";
+                        results = await connection.QueryAsync<[{MODEL_NAME}]>(query);    
+                        connection.CloseAsync();    
+                    }    
+                    return results;    
+        }    
+
+        public int Insert([{MODEL_NAME}] data)    
+        {    
+            using (var connection = new MySqlConnection(ConnectionString))    
+            {    
+                connection.Open(); 
+                string sql = @"Insert into [{TABLE_NAME}] ([{COLUMN_LIST}])
+                                                          values([{COLUMN_LIST_PARAM}])
+                            ";
+                var affectedRows = connection.Execute(sql,[{OBJECT_PARAM}]);    
+                connection.Close();    
+                return affectedRows;    
+            }    
+        }   
+        
+         public async Task<int> InsertAsync([{MODEL_NAME}] data)    
+                {    
+                    using (var connection = new MySqlConnection(ConnectionString))    
+                    {    
+                        await connection.OpenAsync(); 
+                        string sql = @"Insert into [{TABLE_NAME}] ([{COLUMN_LIST}])
+                                                                  values([{COLUMN_LIST_PARAM}])
+                                    ";
+                        var affectedRows = await connection.ExecuteAsync(sql,[{OBJECT_PARAM}]);    
+                        await connection.CloseAsync();    
+                        return affectedRows;    
+                    }    
+                }   
+                
+        
+        public int Update([{MODEL_NAME}] data)    
+        {    
+            using (var connection = new MySqlConnection(ConnectionString))    
+            {    
+                connection.Open();    
+                string sql = @"Update [{TABLE_NAME}] set [{UPDATE_LIST_PARAM}] where Id=@Id";
+                var affectedRows = connection.Execute(sql,[{OBJECT_PARAM}]);    
+                connection.Close();    
+                return affectedRows;    
+            }    
+        }  
+        
+          public async Task<int> UpdateAsync([{MODEL_NAME}] data)    
+                {    
+                    using (var connection = new MySqlConnection(ConnectionString))    
+                    {    
+                        await connection.OpenAsync();    
+                        string sql = @"Update [{TABLE_NAME}] set [{UPDATE_LIST_PARAM}] where Id=@Id";
+                        var affectedRows = await connection.ExecuteAsync(sql,[{OBJECT_PARAM}]);    
+                        await connection.CloseAsync();    
+                        return affectedRows;    
+                    }    
+                }  
+        
+        public int Delete(long Id)    
+        {    
+            using (var connection = new MySqlConnection(ConnectionString))    
+            {    
+                connection.Open();    
+                string sql = @"Delete from [{TABLE_NAME}] Where Id = @Id";
+                var affectedRows = connection.Execute(sql, new {Id = Id });    
+                connection.Close();    
+                return affectedRows;    
+            }    
+        }    
+        
+        public async Task<int> DeleteAsync(long Id)    
+        {    
+           using (var connection = new MySqlConnection(ConnectionString))    
+           {    
+                        await connection.OpenAsync();    
+                        string sql = @"Delete from [{TABLE_NAME}] Where Id = @Id";
+                        var affectedRows = await connection.ExecuteAsync(sql, new {Id = Id });    
+                        await connection.CloseAsync();    
+                        return affectedRows;    
+           }    
+        }    
+
+        public [{MODEL_NAME}] GetById(long Id)    
+        {    
+            using (var connection = new MySqlConnection(ConnectionString))    
+            {    
+                connection.Open();    
+                string sql = @"Select [{COLUMN_LIST}] from [{TABLE_NAME}] Where Id = @Id";
+                var result  = connection.QueryFirst<[{MODEL_NAME}]>(sql, new {Id = Id });    
+                connection.Close();    
+                return result;    
+            }    
+        }    
+        
+         public async Task<[{MODEL_NAME}]> GetByIdAsync(long Id)    
+                {    
+                    using (var connection = new MySqlConnection(ConnectionString))    
+                    {    
+                        await connection.Open();    
+                        string sql = @"Select [{COLUMN_LIST}] from [{TABLE_NAME}] Where Id = @Id";
+                        var result  = await connection.QueryFirstAsync<[{MODEL_NAME}]>(sql, new {Id = Id });    
+                        await connection.CloseAsync();    
+                        return result;    
+                    }    
+                }    
+	}
+}
