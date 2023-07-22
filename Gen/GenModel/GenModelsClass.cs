@@ -5,12 +5,12 @@ namespace Gencode.GenModel
 {
     public class GenModelsClass
     {
-        public static void GenClass(string nameSpace,string className)
+        public static void GenClass(string nameSpace,string className,string sql_query)
         {
             try
             {
                 string output_path = Path.Combine("Outputs","Models");
-                string query_path = Path.Combine("GenModel", "Custom.sql");
+                //string query_path = Path.Combine("GenModel", "Custom.sql");
                 string base_model_template_path = Path.Combine("GenModel", "BaseModel.txt");
                 string model_template_path = Path.Combine("GenModel", "ModelClass.txt");
                 
@@ -19,7 +19,7 @@ namespace Gencode.GenModel
 
                 string base_model_class_str = base_model_template.Replace("[{NAMESPACE}]",nameSpace);
                 
-                PreparePocoModel gp = new PreparePocoModel(File.ReadAllText(query_path));
+                PreparePocoModel gp = new PreparePocoModel(sql_query);
                 string propertys = gp.GetProperty;
                 string model_class_str = model_template.Replace("[{NAMESPACE}]", nameSpace)
                                                             .Replace("[{PROPERTIES}]", propertys)
@@ -40,12 +40,12 @@ namespace Gencode.GenModel
             
         }
 
-        public static void GenMvvmClass(string nameSpace, string className)
+        public static void GenMvvmClass(string nameSpace, string className,string query_path)
         {
             try
             {
                 string output_path = Path.Combine("Outputs", "ViewModels");
-                string query_path = Path.Combine("GenModel", "Custom.sql");
+                //string query_path = Path.Combine("GenModel", "Custom.sql");
                 string list_model_template_path = Path.Combine("GenModel", "ListViewModel.txt");
                 string base_model_template_path = Path.Combine("GenModel", "ViewModelBase.txt");
                 string model_template_path = Path.Combine("GenModel", "ViewModel.txt");
@@ -55,7 +55,7 @@ namespace Gencode.GenModel
                 string list_view_model_template = File.ReadAllText(list_model_template_path);
                 string base_model_class_str = base_model_template.Replace("[{NAMESPACE}]", nameSpace);
 
-                PreparePocoModel gp = new PreparePocoModel(File.ReadAllText(query_path));
+                PreparePocoModel gp = new PreparePocoModel(query_path);
                 string propertys = gp.GetMvvmProperty;
                 string privete_feild = gp.GetPrivateFeild;
                 string model_class_str = model_template.Replace("[{NAMESPACE}]", nameSpace)

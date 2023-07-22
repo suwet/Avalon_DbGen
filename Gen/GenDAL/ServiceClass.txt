@@ -20,7 +20,6 @@ namespace [{NAMESPACE}]
             //TheMapper
         }
 
-        // BindingList
 		public List<[{VIEW_MODEL_NAME}]> GetAll()    
         {    
            try
@@ -33,6 +32,20 @@ namespace [{NAMESPACE}]
            {
                 throw;
            }
+        }    
+        
+        public async Task<IEnumerable<[{VIEW_MODEL_NAME}]>> GetAllAsync()    
+        {    
+                   try
+                   {
+                        var results = await _[{DAL_CLASS}].GetAllAsync();
+                        var datas = await Task.FromResult(TheMapper.Map<List<[{VIEW_MODEL_NAME}]>>(results));
+                        return datas;
+                   }
+                   catch(Exception ex)
+                   {
+                        throw;
+                   }
         }    
 
         public int Add([{MODEL_NAME}] data)    
@@ -47,6 +60,18 @@ namespace [{NAMESPACE}]
            }
         }   
         
+         public async Task<int> AddAsync([{MODEL_NAME}] data)    
+         {    
+                    try
+                   {
+                        return await _[{DAL_CLASS}].InsertAsync(data);
+                   }
+                   catch(Exception ex)
+                   {
+                        throw;
+                   }
+         }   
+        
         public int Update([{MODEL_NAME}] data)    
         {    
             try
@@ -59,6 +84,18 @@ namespace [{NAMESPACE}]
            }
         }  
         
+         public async Task<int> UpdateAsync([{MODEL_NAME}] data)    
+         {    
+                    try
+                   {
+                        return await _[{DAL_CLASS}].UpdateAsync(data);
+                   }
+                   catch(Exception ex)
+                   {
+                        throw;
+                   }
+         }  
+        
         public int Delete(long Id)    
         {    
             try
@@ -70,6 +107,18 @@ namespace [{NAMESPACE}]
                 throw;
            }
         }    
+        
+         public async Task<int> DeleteAsync(long Id)    
+         {    
+                    try
+                   {
+                        return await _[{DAL_CLASS}].DeleteAsync(Id);
+                   }
+                   catch(Exception ex)
+                   {
+                        throw;
+                   }
+         }    
 
         public [{VIEW_MODEL_NAME}] GetById(long Id)    
         {    
@@ -83,5 +132,18 @@ namespace [{NAMESPACE}]
                 throw;
            }
         }    
+        
+         public async Task<[{VIEW_MODEL_NAME}]> GetByIdAsync(long Id)    
+                {    
+                     try
+                   {
+                        var result = await _[{DAL_CLASS}].GetByIdAsync(Id);
+                        return await Task.FromResult(TheMapper.Map<[{VIEW_MODEL_NAME}]>(result));
+                   }
+                   catch(Exception ex)
+                   {
+                        throw;
+                   }
+                }    
 	}
 }

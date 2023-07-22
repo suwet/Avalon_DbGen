@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.Common;
 
-namespace Gen;
+namespace Gen.ViewModels;
 
  public class ColumnModel
     {

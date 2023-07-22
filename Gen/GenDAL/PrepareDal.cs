@@ -1,12 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SchemaInfomation.Models;
-using SchemaInfomation;
+using Gen;
+using Gen.ViewModels;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
 namespace Gencode.GenDAL
@@ -14,8 +10,7 @@ namespace Gencode.GenDAL
     public class PrepareDal
     {
         List<ColumnModel> Columns;
-        private string connection_str = System.Configuration.ConfigurationManager.
-                                        ConnectionStrings["Test"].ConnectionString;
+        private string connection_str = Program.configuration.GetConnectionString("Test");
         private string sql = string.Empty;
 
         public PrepareDal(string sql)

@@ -132,7 +132,7 @@ namespace [{NAMESPACE}]
                 {    
                     using (var connection = new MySqlConnection(ConnectionString))    
                     {    
-                        await connection.Open();    
+                        await connection.OpenAsync();    
                         string sql = @"Select [{COLUMN_LIST}] from [{TABLE_NAME}] Where Id = @Id";
                         var result  = await connection.QueryFirstAsync<[{MODEL_NAME}]>(sql, new {Id = Id });    
                         await connection.CloseAsync();    

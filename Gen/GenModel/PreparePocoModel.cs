@@ -1,23 +1,18 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Gen;
+using Gen.ViewModels;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
-using SchemaInfomation;
-using SchemaInfomation.Models;
 
 namespace Gencode.GenModel
 {
     public class PreparePocoModel
     {
         List<ColumnModel> Columns;
+
         private string connection_str =
-                                        System.Configuration.ConfigurationManager.
-                                        ConnectionStrings["Test"].ConnectionString;
+            Program.configuration.GetConnectionString("Test");
         //private string connection_str = "Data Source=suwet_phr2\\SQL2014;Initial Catalog = MyTestdb; Persist Security Info=True;User ID = sa; Password=1234qwer";
         private string sql = string.Empty;
         public PreparePocoModel(string sql)
