@@ -31,7 +31,6 @@ public class ColumnInfo
                             //Console.WriteLine(row["AllowDBNull"].ToString());
                             var item = new ColumnModel();
                             item.DotNetType = row["DataType"].ToString();
-                            item.DotNetType = row["DataType"].ToString();
                             item.ColumnName = row["ColumnName"].ToString();
                             item.Nullable = (row["AllowDBNull"].ToString().ToLower() == "true") ? true : false;
                             item.IsPrimaryKey = (row["IsKey"].ToString().ToLower() == "true") ? true : false;
@@ -66,16 +65,18 @@ public class ColumnInfo
                         var table = reader.GetSchemaTable();
                         var nameCol = table.Columns["ColumnName"];
                         List<ColumnModel> resutls = new List<ColumnModel>();
+                        int index = 0;
                         foreach (DataRow row in table.Rows)
                         {
 
                             //Console.WriteLine(row["AllowDBNull"].ToString());
                             var item = new ColumnModel();
                             item.DotNetType = row["DataType"].ToString();
-                            item.DotNetType = row["DataType"].ToString();
                             item.ColumnName = row["ColumnName"].ToString();
                             item.Nullable = (row["AllowDBNull"].ToString().ToLower() == "true") ? true : false;
                             item.IsPrimaryKey = (row["IsKey"].ToString().ToLower() == "true") ? true : false;
+                            item.Row_Index = index;
+                            index++;
                             resutls.Add(item);
 
                         }

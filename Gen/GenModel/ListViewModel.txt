@@ -18,7 +18,7 @@ namespace [{NAMESPACE}]
 		}
 		public [{CLASS_NAME}](IEnumerable<[{ViewModel}]> list )
 		{
-			[{ViewModel}]s = new BindingList<[{ViewModel}]>(list.ToList());
+			[{ViewModel}]s = new ObservableCollection<[{ViewModel}]>(list.ToList());
 		}
 		public ObservableCollection<[{ViewModel}]> [{ViewModel}]s {get;set;}
 	}

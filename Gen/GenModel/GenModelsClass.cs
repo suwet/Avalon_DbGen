@@ -85,5 +85,78 @@ namespace Gencode.GenModel
                 throw;
             }
         }
+
+        public static void GenAvaloniaDataGridUI(string collectionName, string dataGridName,string query_path)
+        {
+            try
+            {
+                string output_path = Path.Combine("Outputs", "UIs");
+                string data_grid_template_path = Path.Combine("GenModel", "DataGrid.txt");
+
+                string data_grid__template = File.ReadAllText(data_grid_template_path);
+                PreparePocoModel gp = new PreparePocoModel(query_path,connection_str);
+                string text_column_grid = gp.GetTextColumnOfDataGrid;
+                string data_grid_str_tag = data_grid__template.Replace("[{DATA_GRID_NAME}]",dataGridName)
+                                                          .Replace("[{COLLECTION_NAME}]",collectionName)
+                                                          .Replace("[{DATA_GRID_TEXT_COLUMN_NAME}]",text_column_grid);
+                Directory.CreateDirectory(output_path);
+                File.WriteAllText(Path.Combine(output_path, dataGridName + ".xaml"), data_grid_str_tag);
+            }
+            catch (System.Exception exe)
+            {
+                
+                throw;
+            }
+        }
+
+        public static void GenAvaloniaOneColWithLeftLable(string headerText, string query_path)
+        {
+            try
+            {
+                string output_path = Path.Combine("Outputs", "UIs");
+                string one_col_template_path = Path.Combine("GenModel", "OneColWithLeftLable.txt");
+
+                string data_grid__template = File.ReadAllText(one_col_template_path);
+                PreparePocoModel gp = new PreparePocoModel(query_path,connection_str);
+                string one_col_text = gp.GetOneColWithLeftRowData;
+                string row_def = gp.GetOneColRowDefinitions;
+
+                string one_col_tag_data = data_grid__template.Replace("[{HEADER_TEXT}]",headerText)
+                                                          .Replace("[{ROW_DEF}]",row_def)
+                                                          .Replace(" [{ROW_DATA}]",one_col_text);
+                Directory.CreateDirectory(output_path);
+                File.WriteAllText(Path.Combine(output_path, headerText + "one_col.xaml"), one_col_tag_data);
+            }
+            catch (System.Exception exe)
+            {
+                
+                throw;
+            }
+        }
+
+        public static void GenAvaloniaTwoColWithLeftLable(string headerText, string query_path)
+        {
+            try
+            {
+                string output_path = Path.Combine("Outputs", "UIs");
+                string two_col_template_path = Path.Combine("GenModel", "OneColWithLeftLable.txt");
+
+                string data_grid__template = File.ReadAllText(two_col_template_path);
+                PreparePocoModel gp = new PreparePocoModel(query_path,connection_str);
+                string two_col_text = gp.GetOneColWithLeftRowData;
+                string row_def = gp.GetOneColRowDefinitions;
+
+                string tow_col_tag_data = data_grid__template.Replace("[{HEADER_TEXT}]",headerText)
+                                                          .Replace("[{ROW_DEF}]",row_def)
+                                                          .Replace(" [{ROW_DATA}]",two_col_text);
+                Directory.CreateDirectory(output_path);
+                File.WriteAllText(Path.Combine(output_path, headerText + "two_col.xaml"), tow_col_tag_data);
+            }
+            catch (System.Exception exe)
+            {
+                
+                throw;
+            }
+        }
     }
 }

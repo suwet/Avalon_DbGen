@@ -1,0 +1,16 @@
+ <DataGrid Name="[{DATA_GRID_NAME}]"  AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="True" GridLinesVisibility="All" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+              Items="{Binding [{COLLECTION_NAME}]s}">
+          <DataGrid.Columns>
+            [{DATA_GRID_TEXT_COLUMN_NAME}]
+            <DataGridTemplateColumn Header="Action" CanUserResize="True" Width="2*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Grid ColumnDefinitions="*,*">
+                    <Button Grid.Column="0" HorizontalAlignment="Right" Width="100" Margin="10" Background="Goldenrod" Padding="10" Content="Edit"/>
+                    <Button Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="Red" Margin="10" Padding="10" Content="Delete"/>
+                  </Grid>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+</DataGrid>

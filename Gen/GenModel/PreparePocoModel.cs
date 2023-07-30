@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Gen;
 using Gen.ViewModels;
@@ -56,5 +57,63 @@ namespace Gencode.GenModel
                 return string.Join("    \r\n", Columns.Select(t => t.PrivateFeild));
             }
         }
+
+         #region UI
+
+      
+        public string GetTextColumnOfDataGrid
+        {
+            get
+            {
+                string grid_text_column_tag = string.Empty;
+                grid_text_column_tag = string.Join("    \r\n", Columns.Select(x => x.GetTextColumnOfDataGrid));
+                return grid_text_column_tag;
+            }
+        }
+
+        public string GetOneColRowDefinitions
+        {
+            get
+            {
+                string result = string.Join(" , ",Columns.Select(x=>x.GetOneColRowDefinitions));
+                return result;
+            }
+        }
+
+        public string GetOneColWithLeftRowData
+        {
+            get
+            {
+                string result = string.Join(" \r\n",Columns.Select(x=>x.GetOneColWithLeftRowData()));
+                return result;
+            }
+        }
+
+        public string GetTwoColRowDefinitions
+        {
+            get
+            {
+                string row_def=string.Empty;
+
+                int num_of_row = (int)Math.Ceiling(((double)Columns.Count/2)+0.1);
+                for(int i=0;i<num_of_row;i++)
+                {
+                    row_def += "auto,";
+                }
+
+                return row_def.Remove(row_def.Length-1,1);
+            }
+        }
+
+        public string GetTwoColWithLeftRowData
+        {
+            get
+            {
+                string result = string.Empty;
+               
+                return result;
+            }
+        }
+        #endregion
     }
 }

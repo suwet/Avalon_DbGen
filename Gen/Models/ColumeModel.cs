@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
 
 namespace Gen.ViewModels;
@@ -10,6 +11,8 @@ namespace Gen.ViewModels;
 		public bool Nullable;
 		public bool IsIdentity;
 		public bool IsPrimaryKey;
+
+		public int Row_Index;
 
         public ColumnModel()
         {
@@ -161,46 +164,45 @@ namespace Gen.ViewModels;
 		}
 
         #region UI
-		public string LableForColumn
+		public string GetTextColumnOfDataGrid
         {
             get
             {
 				string body = string.Empty;
-				return string.Format("	private System.Windows.Forms.Label lbl_{0};", ColumnName.ToLower());
+				string tag =  $"	<DataGridTextColumn Header=\"{ColumnName}\"  Binding=\"{{Binding {ColumnName} }} \" />  \r\n";
+				return tag;
             }
         }
 
-		public string TextBoxForColumn
+		public string GetOneColRowDefinitions
 		{
 			get
 			{
-				string body = string.Empty;
-				return string.Format("	private System.Windows.Forms.TextBox txt_{0};", ColumnName.ToLower());
+				return "auto";
 			}
 		}
-		public string TextBoxInStant
-        {
-            get
-            {
-				string body = string.Empty;
-				return string.Format("	this.txt_{0} = new System.Windows.Forms.TextBox();", ColumnName.ToLower());
-			}
-        }
 
-		public string LableInStant
-        {
-			get
-			{
-				string body = string.Empty;
-				return string.Format("	this.lbl_{0} = new System.Windows.Forms.Label();", ColumnName.ToLower());
-			}
+		public string GetOneColWithLeftRowData()
+		{
+			// <!--  row 0 -->
+			string comment = $"<!--  row {Row_Index} --> \r\n";
+			string tag = comment+= $" <Label Content=\"{ColumnName}\" Grid.Column=\"0\" Grid.Row=\"{Row_Index}\" Margin=\"0,5\"/>   \r\n";
+            tag +=  $"<TextBox Text=\"\" Grid.Column=\"1\" Grid.Row=\"{Row_Index}\" Margin=\"0,5\"/>  \r\n \r\n";
+            return tag;
 		}
-		public string TextBoxBinding(string viewModelName)
-        {
 
-				string body = string.Empty;
-				return string.Format("	this.Bind({0},vm=>vm.{1},v=>v.{2}.Text);", viewModelName, ColumnName.ToLower(), "txt_"+ColumnName.ToLower());
+		public string GetTwoColIndex()
+		{
+			// <!--  row 0 -->
+			var _index = (int)Math.Truncate(((double)Row_Index/2));
+
+			// string tag = $" <Label Content="Partner Name" Grid.Row="0" Grid.Column="0" Margin="0,0,0,10"/>   \r\n";
 			
+            // <TextBox Text="" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10"/>
+            // <Label Content="Partner Email" Grid.Row="0" Grid.Column="2" Margin="10,0,0,10"/>
+            // <TextBox Text="" Grid.Row="0" Grid.Column="3" Margin="0,0,0,10"/>  
+
+			return "";
 		}
 		#endregion
 	}
