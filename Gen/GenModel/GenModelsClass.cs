@@ -139,12 +139,12 @@ namespace Gencode.GenModel
             try
             {
                 string output_path = Path.Combine("Outputs", "UIs");
-                string two_col_template_path = Path.Combine("GenModel", "OneColWithLeftLable.txt");
+                string two_col_template_path = Path.Combine("GenModel", "TwoColWithLeftLable.txt");
 
                 string data_grid__template = File.ReadAllText(two_col_template_path);
                 PreparePocoModel gp = new PreparePocoModel(query_path,connection_str);
-                string two_col_text = gp.GetOneColWithLeftRowData;
-                string row_def = gp.GetOneColRowDefinitions;
+                string two_col_text = gp.GetTwoColWithLeftRowData;
+                string row_def = gp.GetTwoColRowDefinitions;
 
                 string tow_col_tag_data = data_grid__template.Replace("[{HEADER_TEXT}]",headerText)
                                                           .Replace("[{ROW_DEF}]",row_def)

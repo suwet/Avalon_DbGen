@@ -147,7 +147,7 @@ public class MainWindowViewModel : ViewModelBase
             GenModelsClass.GenMvvmClass(NameSpace,ViewModelClassName,Sql_Query.Trim());
             GenModelsClass.GenAvaloniaDataGridUI(ViewModelClassName,"Grid_"+ViewModelClassName,Sql_Query.Trim());
             GenModelsClass.GenAvaloniaOneColWithLeftLable("SampleHeader",Sql_Query.Trim());
-
+            GenModelsClass.GenAvaloniaTwoColWithLeftLable("SampleTwoColHeader",Sql_Query.Trim());
             
             if (_ischeck_dal && (string.IsNullOrEmpty(DalClassName)==false && string.IsNullOrEmpty(TableName)==false))
             {

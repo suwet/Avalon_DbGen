@@ -187,22 +187,8 @@ namespace Gen.ViewModels;
 			// <!--  row 0 -->
 			string comment = $"<!--  row {Row_Index} --> \r\n";
 			string tag = comment+= $" <Label Content=\"{ColumnName}\" Grid.Column=\"0\" Grid.Row=\"{Row_Index}\" Margin=\"0,5\"/>   \r\n";
-            tag +=  $"<TextBox Text=\"\" Grid.Column=\"1\" Grid.Row=\"{Row_Index}\" Margin=\"0,5\"/>  \r\n \r\n";
+            tag +=  $"<TextBox Text=\"{{Binding {ColumnName} }}\" Grid.Column=\"1\" Grid.Row=\"{Row_Index}\" Margin=\"0,5\"/>  \r\n \r\n";
             return tag;
-		}
-
-		public string GetTwoColIndex()
-		{
-			// <!--  row 0 -->
-			var _index = (int)Math.Truncate(((double)Row_Index/2));
-
-			// string tag = $" <Label Content="Partner Name" Grid.Row="0" Grid.Column="0" Margin="0,0,0,10"/>   \r\n";
-			
-            // <TextBox Text="" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10"/>
-            // <Label Content="Partner Email" Grid.Row="0" Grid.Column="2" Margin="10,0,0,10"/>
-            // <TextBox Text="" Grid.Row="0" Grid.Column="3" Margin="0,0,0,10"/>  
-
-			return "";
 		}
 		#endregion
 	}

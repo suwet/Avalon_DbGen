@@ -95,7 +95,7 @@ namespace Gencode.GenModel
             {
                 string row_def=string.Empty;
 
-                int num_of_row = (int)Math.Ceiling(((double)Columns.Count/2)+0.1);
+                int num_of_row = (int)Math.Truncate(((double)Columns.Count/2));
                 for(int i=0;i<num_of_row;i++)
                 {
                     row_def += "auto,";
@@ -109,8 +109,21 @@ namespace Gencode.GenModel
         {
             get
             {
+                int row_count = (int)Math.Truncate((decimal)Columns.Count/2);
                 string result = string.Empty;
-               
+                int j = 0;
+                for(int k=1;j<row_count;k+=2)
+                {
+                    result+= $" <Label Content=\"{Columns[k-1].ColumnName}\" Grid.Row=\"{j}\" Grid.Column=\"0\" Margin=\"0,0,0,10\"/> \r\n";
+                    result+= $" <TextBox Text=\"{{Binding {Columns[k-1].ColumnName} }}\" Grid.Row=\"{j}\" Grid.Column=\"1\" Margin=\"0,0,0,10\"/>  \r\n";
+                    if(j <= row_count)
+                    {
+                        result+= $" <Label Content=\"{Columns[k].ColumnName}\" Grid.Row=\"{j}\" Grid.Column=\"2\" Margin=\"10,0,0,10\"/>  \r\n";
+                        result+= $" <TextBox Text=\"{{Binding {Columns[k].ColumnName} }}\" Grid.Row=\"{j}\" Grid.Column=\"3\" Margin=\"0,0,0,10\"/>  \r\n";
+                    }
+                    j+=1;
+                    result+= "\r\n \r\n";
+                }
                 return result;
             }
         }
