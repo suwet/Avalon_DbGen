@@ -21,5 +21,10 @@ namespace [{NAMESPACE}]
 			[{ViewModel}]s = new ObservableCollection<[{ViewModel}]>(list.ToList());
 		}
 		public ObservableCollection<[{ViewModel}]> [{ViewModel}]s {get;set;}
+
+		public ICommand NewCommand { get; }
+
+        public ReactiveCommand<int, Task> EditCommand { get; }
+        public ReactiveCommand<int, Unit> DeleteCommand { get; }
 	}
 }

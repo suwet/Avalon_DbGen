@@ -48,11 +48,11 @@ namespace [{NAMESPACE}]
                    }
         }    
 
-        public int Add([{MODEL_NAME}] data)    
+        public int Add([{VIEW_MODEL_NAME}] data)    
         {    
             try
            {
-                return _[{DAL_CLASS}].Insert(data);
+                return _[{DAL_CLASS}].Insert(TheMapper.Map<[{MODEL_NAME}]>(data));
            }
            catch(Exception ex)
            {
@@ -60,11 +60,11 @@ namespace [{NAMESPACE}]
            }
         }   
         
-         public async Task<int> AddAsync([{MODEL_NAME}] data)    
+         public async Task<int> AddAsync([{VIEW_MODEL_NAME}] data)    
          {    
                     try
                    {
-                        return await _[{DAL_CLASS}].InsertAsync(data);
+                        return await _[{DAL_CLASS}].InsertAsync(TheMapper.Map<[{MODEL_NAME}]>(data));
                    }
                    catch(Exception ex)
                    {
@@ -72,11 +72,11 @@ namespace [{NAMESPACE}]
                    }
          }   
         
-        public int Update([{MODEL_NAME}] data)    
+        public int Update([{VIEW_MODEL_NAME}] data)    
         {    
             try
            {
-                return _[{DAL_CLASS}].Update(data);
+                return _[{DAL_CLASS}].Update(TheMapper.Map<[{MODEL_NAME}]>(data));
            }
            catch(Exception ex)
            {
@@ -84,11 +84,11 @@ namespace [{NAMESPACE}]
            }
         }  
         
-         public async Task<int> UpdateAsync([{MODEL_NAME}] data)    
+         public async Task<int> UpdateAsync([{VIEW_MODEL_NAME}] data)    
          {    
                     try
                    {
-                        return await _[{DAL_CLASS}].UpdateAsync(data);
+                        return await _[{DAL_CLASS}].UpdateAsync(TheMapper.Map<[{MODEL_NAME}]>(data));
                    }
                    catch(Exception ex)
                    {
